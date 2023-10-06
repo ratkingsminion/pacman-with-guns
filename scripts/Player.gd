@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var move_seconds := 0.25
-@export var tile_size := 32
+@export var tile_size := 16
 
 var cur_dir := Vector2i(0, 0)
 var last_pos := Vector2i(2, 2)
@@ -21,13 +21,6 @@ func _process(delta):
 	check_input("move_right", Vector2i(1, 0))
 	check_input("move_up", Vector2i(0, -1))
 	check_input("move_down", Vector2i(0, 1))
-	
-	var position_new := tile_size * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y)
-	position = VectorEx.move_toward(position, position_new, delta * tile_size / move_seconds)
-	
-	if position == tile_size * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y):
-		last_pos = target_pos
-		target_pos = target_pos_next
 		
 	if not inputs.is_empty(): # change direction according to current input
 		var elem = inputs.front()
@@ -39,6 +32,13 @@ func _process(delta):
 		target_pos = last_pos	
 	if try_move(target_pos, target_pos + cur_dir):
 		target_pos_next = target_pos + cur_dir
+	
+	var position_new := tile_size * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y)
+	position = VectorEx.move_toward(position, position_new, delta * tile_size / move_seconds)
+	
+	if position == tile_size * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y):
+		last_pos = target_pos
+		target_pos = target_pos_next
 
 	queue_redraw() # for debug drawing
 
@@ -53,13 +53,12 @@ func _draw():
 ###
 
 func try_move(from:Vector2i, to:Vector2i) -> bool:
-	var walls = get_parent().get_node("Walls") as TileMap
 	var move = to - from
-	var c = walls.get_cell_atlas_coords(0, from)
+	var c = Walls.cur.get_cell_atlas_coords(0, from)
 	if c.y == 0:
 		if (c.x == 1 or c.x == 3) and move.y > 0: return false
 		if (c.x == 2 or c.x == 3) and move.x > 0: return false
-	var nc = walls.get_cell_atlas_coords(0, to)
+	var nc = Walls.cur.get_cell_atlas_coords(0, to)
 	if nc.y == 0:
 		if (nc.x == 1 or nc.x == 3) and move.y < 0: return false
 		if (nc.x == 2 or nc.x == 3) and move.x < 0: return false
