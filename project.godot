@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="SuperSimpleRogueLike"
+config/name="Pacman with guns"
+config/description="A game like PacMan, but with guns"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
