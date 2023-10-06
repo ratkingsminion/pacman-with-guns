@@ -1,5 +1,6 @@
 extends Area2D
 
+@export var walls:Walls
 @export var move_seconds := 0.25
 @export var tile_size := 16
 
@@ -44,21 +45,22 @@ func _process(delta):
 
 func _draw():
 	var l = tile_size * Vector2(last_pos.x , last_pos.y) - position
-	draw_rect(Rect2(l.x, l.y, tile_size, tile_size), Color.GREEN, false, 3.0)
+	draw_rect(Rect2(l.x, l.y, tile_size, tile_size), Color.GREEN, false, 1.0)
 	var p = tile_size * Vector2(target_pos_next.x , target_pos_next.y) - position
-	draw_rect(Rect2(p.x, p.y, tile_size, tile_size), Color.YELLOW, false, 3.0)
+	draw_rect(Rect2(p.x, p.y, tile_size, tile_size), Color.YELLOW, false, 1.0)
 	var t = tile_size * Vector2(target_pos.x , target_pos.y) - position
-	draw_rect(Rect2(t.x, t.y, tile_size, tile_size), Color.RED, false, 3.0)
+	draw_rect(Rect2(t.x, t.y, tile_size, tile_size), Color.RED, false, 1.0)
 
 ###
 
 func try_move(from:Vector2i, to:Vector2i) -> bool:
 	var move = to - from
-	var c = Walls.cur.get_cell_atlas_coords(0, from)
+	if walls == null: return true # test mode
+	var c = walls.get_cell_atlas_coords(0, from)
 	if c.y == 0:
 		if (c.x == 1 or c.x == 3) and move.y > 0: return false
 		if (c.x == 2 or c.x == 3) and move.x > 0: return false
-	var nc = Walls.cur.get_cell_atlas_coords(0, to)
+	var nc = walls.get_cell_atlas_coords(0, to)
 	if nc.y == 0:
 		if (nc.x == 1 or nc.x == 3) and move.y < 0: return false
 		if (nc.x == 2 or nc.x == 3) and move.x < 0: return false
@@ -74,3 +76,8 @@ func check_input(name:String, move:Vector2i):
 		#	move_timer = Time.get_ticks_msec() + 1000 * move_seconds
 	elif Input.is_action_just_released(name) and inside_inputs.exists:
 		inputs.erase(inside_inputs.elem)
+
+
+func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body is Pill:
+		body.queue_free()
