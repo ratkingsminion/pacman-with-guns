@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var walls:Walls
-@export var move_seconds := 0.25
+@export var move_seconds := 0.2
 @export var tile_size := 16
 
 var cur_dir := Vector2i(0, 0)
@@ -77,7 +77,6 @@ func check_input(name:String, move:Vector2i):
 	elif Input.is_action_just_released(name) and inside_inputs.exists:
 		inputs.erase(inside_inputs.elem)
 
-
-func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+func _on_body_shape_entered(body_rid:RID, body:Node2D, body_shape_index:int, local_shape_index:int):
 	if body is Pill:
-		body.queue_free()
+		body.collect()

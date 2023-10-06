@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 ArrayEx="*res://scripts/ArrayEx.gd"
 VectorEx="*res://scripts/VectorEx.gd"
+Events="*res://scripts/Events.gd"
 
 [display]
 
