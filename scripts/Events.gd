@@ -1,3 +1,5 @@
 extends Node
 
-signal on_pill_count_changed(new_count:int)
+###
+
+signal on_pill_count_changed(new_count:int, collected_count:int)

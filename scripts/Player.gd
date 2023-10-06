@@ -2,13 +2,18 @@ extends Area2D
 
 @export var walls:Walls
 @export var move_seconds := 0.2
+@export var shoot_seconds := 0.35
 @export var tile_size := 16
+@export var show_debug := false
+
+var bullet_scene = preload("res://bullet.tscn")
 
 var cur_dir := Vector2i(0, 0)
 var last_pos := Vector2i(2, 2)
 var target_pos:Vector2i
 var target_pos_next:Vector2i
 var inputs:Array[Dictionary] = []
+var shoot_timer:float
 
 ###
 
@@ -17,7 +22,10 @@ func _ready():
 	target_pos_next = last_pos
 	target_pos = last_pos
 
-func _process(delta):	
+func _process(delta):
+	if Input.is_action_pressed("shoot"):
+		try_shoot()
+	
 	check_input("move_left", Vector2i(-1, 0))
 	check_input("move_right", Vector2i(1, 0))
 	check_input("move_up", Vector2i(0, -1))
@@ -41,9 +49,10 @@ func _process(delta):
 		last_pos = target_pos
 		target_pos = target_pos_next
 
-	queue_redraw() # for debug drawing
+	if show_debug: queue_redraw() # for debug drawing
 
 func _draw():
+	if not show_debug: return
 	var l = tile_size * Vector2(last_pos.x , last_pos.y) - position
 	draw_rect(Rect2(l.x, l.y, tile_size, tile_size), Color.GREEN, false, 1.0)
 	var p = tile_size * Vector2(target_pos_next.x , target_pos_next.y) - position
@@ -51,7 +60,26 @@ func _draw():
 	var t = tile_size * Vector2(target_pos.x , target_pos.y) - position
 	draw_rect(Rect2(t.x, t.y, tile_size, tile_size), Color.RED, false, 1.0)
 
+### events
+
+func _on_body_shape_entered(body_rid:RID, body:Node2D, body_shape_index:int, local_shape_index:int):
+	if body is Pill:
+		body.collect()
+
 ###
+
+func try_shoot() -> bool:
+	if shoot_timer > Time.get_ticks_msec() / 1000.0: return false
+	shoot_timer = Time.get_ticks_msec() / 1000.0 + shoot_seconds
+	print("shoot")
+	
+	var spawned_bullet = bullet_scene.instantiate()
+	add_child(spawned_bullet)
+	#spawned_bullet.rotation = direction
+	#spawned_bullet.position = location
+	#spawned_bullet.velocity = spawned_bullet.velocity.rotated(direction)
+	
+	return true
 
 func try_move(from:Vector2i, to:Vector2i) -> bool:
 	var move = to - from
@@ -71,12 +99,5 @@ func check_input(name:String, move:Vector2i):
 	var inside_inputs := ArrayEx.try_get_first(inputs, func(elem): return elem.name == name)
 	if Input.is_action_just_pressed(name) and not inside_inputs.exists:
 		inputs.push_front({ name = name, move = move, remove = false })
-		# print(str(Time.get_ticks_msec(), " ", name, " ", inputs.size()))
-		#if move_timer < Time.get_ticks_msec():
-		#	move_timer = Time.get_ticks_msec() + 1000 * move_seconds
 	elif Input.is_action_just_released(name) and inside_inputs.exists:
 		inputs.erase(inside_inputs.elem)
-
-func _on_body_shape_entered(body_rid:RID, body:Node2D, body_shape_index:int, local_shape_index:int):
-	if body is Pill:
-		body.collect()
