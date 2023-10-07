@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 ArrayEx="*res://scripts/ArrayEx.gd"
-VectorEx="*res://scripts/VectorEx.gd"
+MathEx="*res://scripts/MathEx.gd"
 Events="*res://scripts/Events.gd"
 
 [display]

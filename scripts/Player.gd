@@ -1,12 +1,10 @@
 extends Area2D
 
 @export var walls:Walls
+@export var bullet_scene:PackedScene
 @export var move_seconds := 0.2
 @export var shoot_seconds := 0.35
-@export var tile_size := 16
 @export var show_debug := false
-
-var bullet_scene = preload("res://bullet.tscn")
 
 var cur_dir := Vector2i(0, 0)
 var last_pos := Vector2i(2, 2)
@@ -18,7 +16,7 @@ var shoot_timer:float
 ###
 
 func _ready():
-	position = tile_size * Vector2(0.5 + last_pos.x, 0.5 + last_pos.y)
+	position = Walls.TILE_SIZE * Vector2(0.5 + last_pos.x, 0.5 + last_pos.y)
 	target_pos_next = last_pos
 	target_pos = last_pos
 
@@ -42,10 +40,10 @@ func _process(delta):
 	if try_move(target_pos, target_pos + cur_dir):
 		target_pos_next = target_pos + cur_dir
 	
-	var position_new := tile_size * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y)
-	position = VectorEx.move_toward(position, position_new, delta * tile_size / move_seconds)
+	var position_new := Walls.TILE_SIZE * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y)
+	position = MathEx.vec2_move_toward(position, position_new, delta * Walls.TILE_SIZE / move_seconds)
 	
-	if position == tile_size * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y):
+	if position == Walls.TILE_SIZE * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y):
 		last_pos = target_pos
 		target_pos = target_pos_next
 
@@ -53,12 +51,12 @@ func _process(delta):
 
 func _draw():
 	if not show_debug: return
-	var l = tile_size * Vector2(last_pos.x , last_pos.y) - position
-	draw_rect(Rect2(l.x, l.y, tile_size, tile_size), Color.GREEN, false, 1.0)
-	var p = tile_size * Vector2(target_pos_next.x , target_pos_next.y) - position
-	draw_rect(Rect2(p.x, p.y, tile_size, tile_size), Color.YELLOW, false, 1.0)
-	var t = tile_size * Vector2(target_pos.x , target_pos.y) - position
-	draw_rect(Rect2(t.x, t.y, tile_size, tile_size), Color.RED, false, 1.0)
+	var l = Walls.TILE_SIZE * Vector2(last_pos.x , last_pos.y) - position
+	draw_rect(Rect2(l.x, l.y, Walls.TILE_SIZE, Walls.TILE_SIZE), Color.GREEN, false, 1.0)
+	var p = Walls.TILE_SIZE * Vector2(target_pos_next.x , target_pos_next.y) - position
+	draw_rect(Rect2(p.x, p.y, Walls.TILE_SIZE, Walls.TILE_SIZE), Color.YELLOW, false, 1.0)
+	var t = Walls.TILE_SIZE * Vector2(target_pos.x , target_pos.y) - position
+	draw_rect(Rect2(t.x, t.y, Walls.TILE_SIZE, Walls.TILE_SIZE), Color.RED, false, 1.0)
 
 ### events
 
@@ -72,13 +70,7 @@ func try_shoot() -> bool:
 	if shoot_timer > Time.get_ticks_msec() / 1000.0: return false
 	shoot_timer = Time.get_ticks_msec() / 1000.0 + shoot_seconds
 	print("shoot")
-	
-	var spawned_bullet = bullet_scene.instantiate()
-	add_child(spawned_bullet)
-	#spawned_bullet.rotation = direction
-	#spawned_bullet.position = location
-	#spawned_bullet.velocity = spawned_bullet.velocity.rotated(direction)
-	
+	Events.on_player_try_shoot.emit(bullet_scene, Vector2(cur_dir), position)
 	return true
 
 func try_move(from:Vector2i, to:Vector2i) -> bool:
@@ -95,9 +87,9 @@ func try_move(from:Vector2i, to:Vector2i) -> bool:
 	if nc.y == 1: return false
 	return true
 
-func check_input(name:String, move:Vector2i):
-	var inside_inputs := ArrayEx.try_get_first(inputs, func(elem): return elem.name == name)
-	if Input.is_action_just_pressed(name) and not inside_inputs.exists:
-		inputs.push_front({ name = name, move = move, remove = false })
-	elif Input.is_action_just_released(name) and inside_inputs.exists:
+func check_input(input_name:String, move:Vector2i):
+	var inside_inputs := ArrayEx.try_get_first(inputs, func(elem): return elem.name == input_name)
+	if Input.is_action_just_pressed(input_name) and not inside_inputs.exists:
+		inputs.push_front({ name = input_name, move = move, remove = false })
+	elif Input.is_action_just_released(input_name) and inside_inputs.exists:
 		inputs.erase(inside_inputs.elem)

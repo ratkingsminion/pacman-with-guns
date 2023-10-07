@@ -1,7 +1,6 @@
 extends Node2D
 
 @export var walls:Walls
-@export var tile_size := 16
 @export var pill_scene:PackedScene
 
 var max_count := 0
@@ -11,7 +10,7 @@ var pills:Array[Pill]
 ###
 
 func _ready():
-	await get_tree().create_timer(0.25).timeout
+	#await get_tree().create_timer(0.25).timeout
 	create_all()
 
 ###
@@ -23,11 +22,11 @@ func create_all():
 			if walls.get_cell_atlas_coords(0, Vector2i(x, y)).y == 1: continue
 			if pills.any(func(p): return p.x == x and p.y == y): continue
 			var pill = pill_scene.instantiate()
-			pill.init(x, y, tile_size)
+			pill.init(x, y, Walls.TILE_SIZE)
 			add_child(pill)
 			max_count += 1
 			pills.push_back(pill)
-	Events.on_pill_count_changed.emit(pills.size())
+	Events.on_pill_count_changed.emit(pills.size(), 0)
 
 func collect(pill:Pill):
 	pills.erase(pill)
