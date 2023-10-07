@@ -18,8 +18,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-ArrayEx="*res://scripts/ArrayEx.gd"
-MathEx="*res://scripts/MathEx.gd"
 Events="*res://scripts/Events.gd"
 
 [display]

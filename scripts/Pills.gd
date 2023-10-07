@@ -10,7 +10,7 @@ var pills:Array[Pill]
 ###
 
 func _ready():
-	#await get_tree().create_timer(0.25).timeout
+	#await get_tree().process_frame
 	create_all()
 
 ###

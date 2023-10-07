@@ -3,7 +3,7 @@ extends Node2D
 
 ###
 
-func _ready():
+func _init():
 	Events.on_player_try_shoot.connect(on_player_try_shoot)
 
 func on_player_try_shoot(bullet_scene:Resource, direction:Vector2, location:Vector2):
