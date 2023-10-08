@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca30kgo7htqco"]
+
+[ext_resource type="Script" path="res://player/Character.gd" id="1_pqr7v"]
+[ext_resource type="Script" path="res://player/PlayerComp.gd" id="2_5fc03"]
+[ext_resource type="Texture2D" uid="uid://dvlwfp0mccgba" path="res://player/player.png" id="2_q0b5q"]
+[ext_resource type="PackedScene" uid="uid://nlpwr826nwac" path="res://bullets/bullet.tscn" id="3_rr73x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rg2k6"]
+radius = 6.0
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_pqr7v")
+
+[node name="PlayerComp" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+script = ExtResource("2_5fc03")
+area2D = NodePath("../Area2D")
+bullet_scene = ExtResource("3_rr73x")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_q0b5q")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_rg2k6")
