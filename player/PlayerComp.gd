@@ -8,16 +8,14 @@ extends Node
 @export var shoot_seconds := 0.35
 
 var creature:Character
+var inputs:Array[Dictionary] = []
+var shoot_timer:float
 
 ###
 
 func _ready():
 	creature = get_parent() as Character
 	area2D.body_shape_entered.connect(_on_body_shape_entered) # for collecting pills
-
-var inputs:Array[Dictionary] = []
-var shoot_timer:float
-
 
 func _process(delta):
 	if Input.is_action_pressed("shoot"):
@@ -31,7 +29,7 @@ func _process(delta):
 	if not inputs.is_empty(): # change direction according to current input
 		var elem = inputs.front()
 		creature.cur_dir = elem.move
-		if not creature.try_move(creature.target_pos, creature.target_pos + creature.cur_dir):
+		if not creature.try_move(creature.target_pos + creature.cur_dir):
 			creature.cur_dir = Vector2i.ZERO
 
 ### events
@@ -46,7 +44,7 @@ func try_shoot() -> bool:
 	if shoot_timer > Time.get_ticks_msec() / 1000.0: return false
 	shoot_timer = Time.get_ticks_msec() / 1000.0 + shoot_seconds
 	print("shoot")
-	Events.on_player_try_shoot.emit(bullet_scene, Vector2(creature.cur_dir), creature.position)
+	Events.on_player_try_shoot.emit(self, bullet_scene, Vector2(creature.cur_dir), creature.position)
 	return true
 
 func check_input(input_name:String, move:Vector2i):

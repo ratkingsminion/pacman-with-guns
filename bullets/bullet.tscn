@@ -9,3 +9,6 @@ script = ExtResource("1_nro3o")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0989583, 0.03125)
 texture = ExtResource("2_e7p6j")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(20, 0)

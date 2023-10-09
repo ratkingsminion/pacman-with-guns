@@ -1,26 +1,29 @@
 class_name Character
 extends Node2D
 
-@export var walls:Walls
 @export var move_seconds := 0.2
 @export var show_debug := false
+@export var start_pos := Vector2i(2, 2)
+
+@onready var walls:Walls = $/root/Main/GAME/Walls
 
 var cur_dir := Vector2i(0, 0)
-var last_pos := Vector2i(2, 2)
+var last_pos:Vector2i
 var target_pos:Vector2i
 var target_pos_next:Vector2i
 
 ###
 
 func _ready():
-	position = Walls.TILE_SIZE * Vector2(0.5 + last_pos.x, 0.5 + last_pos.y)
-	target_pos_next = last_pos
-	target_pos = last_pos
+	position = Walls.TILE_SIZE * Vector2(0.5 + start_pos.x, 0.5 + start_pos.y)
+	last_pos = start_pos
+	target_pos_next = start_pos
+	target_pos = start_pos
 
 func _process(delta):
 	if target_pos_next == last_pos:
 		target_pos = last_pos	
-	if try_move(target_pos, target_pos + cur_dir):
+	if try_move(target_pos + cur_dir):
 		target_pos_next = target_pos + cur_dir
 	
 	var position_new := Walls.TILE_SIZE * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y)
@@ -43,10 +46,10 @@ func _draw():
 
 ###
 
-func try_move(from:Vector2i, to:Vector2i) -> bool:
-	var move = to - from
+func try_move(to:Vector2i) -> bool:
+	var move = to - target_pos
 	if walls == null: return true # test mode
-	var c = walls.get_cell_atlas_coords(0, from)
+	var c = walls.get_cell_atlas_coords(0, target_pos)
 	if c.y == 0:
 		if (c.x == 1 or c.x == 3) and move.y > 0: return false
 		if (c.x == 2 or c.x == 3) and move.x > 0: return false
