@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var start_pos := Vector2i(2, 2)
 
 @onready var walls:Walls = $/root/Main/GAME/Walls
-@onready var chars:Characters = $/root/Main/GAME/CHARACTERS
+@onready var characters:Characters = $/root/Main/GAME/CHARACTERS
 
 var cur_dir := Vector2i(0, 0)
 var last_pos:Vector2i
@@ -23,7 +23,8 @@ func _ready():
 
 func _process(delta):
 	if target_pos_next == last_pos:
-		target_pos = last_pos	
+		target_pos = last_pos
+		
 	if try_move(target_pos + cur_dir):
 		target_pos_next = target_pos + cur_dir
 	
@@ -48,15 +49,17 @@ func _draw():
 ###
 
 func try_move(to:Vector2i) -> bool:
-	var move = to - target_pos
-	if walls == null: return true # test mode
-	var c = walls.get_cell_atlas_coords(0, target_pos)
-	if c.y == 0:
-		if (c.x == 1 or c.x == 3) and move.y > 0: return false
-		if (c.x == 2 or c.x == 3) and move.x > 0: return false
-	var nc = walls.get_cell_atlas_coords(0, to)
-	if nc.y == 0:
-		if (nc.x == 1 or nc.x == 3) and move.y < 0: return false
-		if (nc.x == 2 or nc.x == 3) and move.x < 0: return false
-	if nc.y == 1: return false
+	if walls != null:
+		var move = to - target_pos
+		var c = walls.get_cell_atlas_coords(0, target_pos)
+		if c.y == 0:
+			if (c.x == 1 or c.x == 3) and move.y > 0: return false
+			if (c.x == 2 or c.x == 3) and move.x > 0: return false
+		var nc = walls.get_cell_atlas_coords(0, to)
+		if nc.y == 0:
+			if (nc.x == 1 or nc.x == 3) and move.y < 0: return false
+			if (nc.x == 2 or nc.x == 3) and move.x < 0: return false
+		if nc.y == 1: return false
+	if characters != null:
+		if not characters.can_move_to(self, to): return false
 	return true
