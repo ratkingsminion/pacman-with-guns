@@ -20,12 +20,6 @@ func _ready():
 	last_pos = start_pos
 	target_pos_next = start_pos
 	target_pos = start_pos
-	
-	add_user_signal("on_hurt")
-	connect("on_hurt", on_hurt)
-
-func on_hurt(test):
-	queue_free()
 
 func _process(delta):
 	if target_pos_next == last_pos:

@@ -25,6 +25,7 @@ func _process(delta:float):
 		# TODO: has_user_signal("on_hurt")
 		#emit_signal("test", )
 		#hit.queue_free()
-		if hit.has_user_signal("on_hurt"):
-			hit.emit_signal("on_hurt", "TEST")
+		Events.try_emit_signal(hit, Events.SIGNAL_HURT)
+		#if hit.has_user_signal("on_hurt"):
+		#	hit.emit_signal("on_hurt", "BY BULLET")
 		queue_free()
