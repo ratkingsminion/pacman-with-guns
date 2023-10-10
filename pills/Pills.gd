@@ -1,7 +1,8 @@
 extends Node2D
 
-@export var walls:Walls
 @export var pill_scene:PackedScene
+
+@onready var walls:Walls = $/root/Main/GAME/Walls
 
 var max_count := 0
 var collected := 0
@@ -10,7 +11,6 @@ var pills:Dictionary # [Vector2i, Pill]
 ###
 
 func _ready():
-	#await get_tree().process_frame
 	create_all()
 
 ###
@@ -35,4 +35,4 @@ func collect(pill:Pill):
 	collected += 1
 	Events.on_pill_count_changed.emit(pills.size(), collected)
 	if pills.is_empty() or randf() < 0.05:
-		create_all()
+		call_deferred("create_all")

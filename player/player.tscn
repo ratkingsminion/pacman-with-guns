@@ -5,22 +5,19 @@
 [ext_resource type="Texture2D" uid="uid://dvlwfp0mccgba" path="res://player/player.png" id="2_q0b5q"]
 [ext_resource type="PackedScene" uid="uid://nlpwr826nwac" path="res://bullets/bullet.tscn" id="3_rr73x"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_rg2k6"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6kkpa"]
 radius = 6.0
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="CharacterBody2D" groups=["hittable"]]
 script = ExtResource("1_pqr7v")
 
-[node name="PlayerComp" type="Node" parent="." node_paths=PackedStringArray("area2D")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6kkpa")
+
+[node name="PlayerComp" type="Node" parent="."]
 script = ExtResource("2_5fc03")
-area2D = NodePath("../Area2D")
 bullet_scene = ExtResource("3_rr73x")
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_q0b5q")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_rg2k6")

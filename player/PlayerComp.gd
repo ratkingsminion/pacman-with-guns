@@ -3,7 +3,6 @@ extends Node
 
 ###
 
-@export var area2D:Area2D
 @export var bullet_scene:PackedScene
 @export var shoot_seconds := 0.35
 
@@ -14,8 +13,7 @@ var shoot_timer:float
 ###
 
 func _ready():
-	creature = get_parent() as Character
-	area2D.body_shape_entered.connect(_on_body_shape_entered) # for collecting pills
+	creature = get_parent()
 
 func _process(delta):
 	if Input.is_action_pressed("shoot"):
@@ -28,15 +26,10 @@ func _process(delta):
 		
 	if not inputs.is_empty(): # change direction according to current input
 		var elem = inputs.front()
-		creature.cur_dir = elem.move
-		if not creature.try_move(creature.target_pos + creature.cur_dir):
-			creature.cur_dir = Vector2i.ZERO
-
-### events
-
-func _on_body_shape_entered(body_rid:RID, body:Node2D, body_shape_index:int, local_shape_index:int):
-	if body is Pill:
-		body.collect()
+		if creature.try_move(creature.target_pos + elem.move):
+			creature.cur_dir = elem.move
+		#if not creature.try_move(creature.target_pos + creature.cur_dir):
+		#	creature.cur_dir = Vector2i.ZERO
 
 ###
 

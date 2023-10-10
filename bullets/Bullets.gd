@@ -8,7 +8,7 @@ func _init():
 
 func on_player_try_shoot(source:Node, bullet_scene:Resource, direction:Vector2, location:Vector2):
 	var bullet := bullet_scene.instantiate() as Bullet
-	add_child(bullet)
+	call_deferred("add_child", bullet) # add_child(bullet)
 	bullet.init(source)
 	bullet.look_at(direction)
 	bullet.position = location

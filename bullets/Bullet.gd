@@ -9,7 +9,7 @@ var velocity:Vector2
 
 func init(source:Node):
 	self.source = source
-	raycast = $RayCast2D as RayCast2D
+	raycast = $RayCast2D
 
 ###
 
@@ -19,5 +19,12 @@ func _process(delta:float):
 		queue_free()
 		
 	# TODO: set right positon of ray cast
-	# TODO: react to anything
-	raycast.force_raycast_update()
+	# TODO needed? raycast.force_raycast_update()
+	var hit = raycast.get_collider()
+	if hit != null and hit.is_in_group("hittable"):
+		# TODO: has_user_signal("on_hurt")
+		#emit_signal("test", )
+		#hit.queue_free()
+		if hit.has_user_signal("on_hurt"):
+			hit.emit_signal("on_hurt", "TEST")
+		queue_free()

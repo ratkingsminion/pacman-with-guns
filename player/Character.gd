@@ -1,11 +1,12 @@
 class_name Character
-extends Node2D
+extends CharacterBody2D
 
 @export var move_seconds := 0.2
 @export var show_debug := false
 @export var start_pos := Vector2i(2, 2)
 
 @onready var walls:Walls = $/root/Main/GAME/Walls
+@onready var chars:Characters = $/root/Main/GAME/CHARACTERS
 
 var cur_dir := Vector2i(0, 0)
 var last_pos:Vector2i
@@ -19,6 +20,12 @@ func _ready():
 	last_pos = start_pos
 	target_pos_next = start_pos
 	target_pos = start_pos
+	
+	add_user_signal("on_hurt")
+	connect("on_hurt", on_hurt)
+
+func on_hurt(test):
+	queue_free()
 
 func _process(delta):
 	if target_pos_next == last_pos:
