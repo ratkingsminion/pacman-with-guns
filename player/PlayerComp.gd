@@ -6,14 +6,12 @@ extends Node
 @export var bullet_scene:PackedScene
 @export var shoot_seconds := 0.35
 
-var creature:Character
+@onready var creature:Character = get_parent()
+
 var inputs:Array[Dictionary] = []
 var shoot_timer:float
 
 ###
-
-func _ready():
-	creature = get_parent()
 
 func _process(delta):
 	if Input.is_action_pressed("shoot"):
@@ -35,8 +33,9 @@ func _process(delta):
 
 func try_shoot() -> bool:
 	if shoot_timer > Time.get_ticks_msec() / 1000.0: return false
+	if creature.cur_dir.x != 0 and fposmod(creature.position.y, 1.0) != 0.0: return false
+	if creature.cur_dir.y != 0 and fposmod(creature.position.x, 1.0) != 0.0: return false
 	shoot_timer = Time.get_ticks_msec() / 1000.0 + shoot_seconds
-	print("shoot")
 	Events.on_player_try_shoot.emit(self, bullet_scene, Vector2(creature.cur_dir), creature.position)
 	return true
 

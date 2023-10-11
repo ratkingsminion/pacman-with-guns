@@ -7,7 +7,7 @@ signal on_player_try_shoot(source:Node, bullet_scene:Resource, direction:Vector2
 
 ### targeted signal ids
 
-const SIGNAL_HURT = "hurt"
+const SIGNAL_HURT = "hurt"		# arguments: source
 
 ###
 

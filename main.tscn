@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://34c84645wrs8"]
+[gd_scene load_steps=21 format=3 uid="uid://34c84645wrs8"]
 
 [ext_resource type="PackedScene" uid="uid://buvvwn5r2isax" path="res://ui/ui.tscn" id="1_1cek7"]
 [ext_resource type="Texture2D" uid="uid://cfpx2qf612qj8" path="res://tiles/floors.png" id="2_me104"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://player/Character.gd" id="10_ib575"]
 [ext_resource type="Texture2D" uid="uid://dagkpiwcb1x6o" path="res://icon.svg" id="11_gxa32"]
 [ext_resource type="Script" path="res://player/EnemyComp.gd" id="11_rorh7"]
+[ext_resource type="Script" path="res://player/HealthComp.gd" id="13_c4wab"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8kg06"]
 texture = ExtResource("2_me104")
@@ -119,6 +120,9 @@ start_pos = Vector2i(1, 1)
 
 [node name="EnemyComp" type="Node" parent="GAME/CHARACTERS/Enemy Test"]
 script = ExtResource("11_rorh7")
+
+[node name="HealthComp" type="Node" parent="GAME/CHARACTERS/Enemy Test"]
+script = ExtResource("13_c4wab")
 
 [node name="Sprite2D" type="Sprite2D" parent="GAME/CHARACTERS/Enemy Test"]
 scale = Vector2(0.1, 0.1)

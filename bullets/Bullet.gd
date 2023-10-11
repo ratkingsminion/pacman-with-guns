@@ -2,12 +2,12 @@ class_name Bullet
 extends Node2D
 
 var raycast:RayCast2D
-var source:Node
+var source:Object
 var velocity:Vector2
 
 ###
 
-func init(source:Node):
+func init(source:Object):
 	self.source = source
 	raycast = $RayCast2D
 
@@ -25,7 +25,7 @@ func _process(delta:float):
 		# TODO: has_user_signal("on_hurt")
 		#emit_signal("test", )
 		#hit.queue_free()
-		Events.try_emit_signal(hit, Events.SIGNAL_HURT)
+		Events.try_emit_signal_1(hit, Events.SIGNAL_HURT, source)
 		#if hit.has_user_signal("on_hurt"):
 		#	hit.emit_signal("on_hurt", "BY BULLET")
 		queue_free()
