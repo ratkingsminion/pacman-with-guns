@@ -13,7 +13,7 @@ var shoot_timer:float
 
 ###
 
-func _process(delta):
+func _process(delta:float):
 	if Input.is_action_pressed("shoot"):
 		try_shoot()
 	

@@ -16,17 +16,22 @@ func _ready():
 ### events:
 
 func on_hurt(source):
+	if health <= 0: return # already dead
+	
 	health -= 1
 	if health <= 0:
 		die()
-	else:	
+	else:
+		var sprite := $".."/Sprite2D as Sprite2D
+		var scale_start := sprite.scale
+		sprite.scale = scale_start * 1.5
+		sprite.modulate = Color.RED
 		var tween = get_tree().create_tween()
-		tween.parallel().tween_property($".."/Sprite2D, "modulate", Color.RED, 0.1)
-		tween.parallel().tween_property($".."/Sprite2D, "scale", Vector2.ZERO, 0.1)
-		tween.tween_callback(func(): $".."/Sprite2D.scale = Vector2.ONE)
-		print(tween)
+		tween.parallel().tween_property(sprite, "modulate", Color.WHITE, 0.1)
+		tween.parallel().tween_property(sprite, "scale", scale_start, 0.1)
 
 ###
 
 func die():
-	creature.queue_free()
+	health = 0
+	Events.try_emit_signal(creature, Events.SIGNAL_DIE)

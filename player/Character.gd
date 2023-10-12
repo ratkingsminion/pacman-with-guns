@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var walls:Walls = $/root/Main/GAME/Walls
 @onready var characters:Characters = $/root/Main/GAME/CHARACTERS
 
+var dead := false
 var cur_dir := Vector2i(0, 0)
 var last_pos:Vector2i
 var target_pos:Vector2i
@@ -20,8 +21,12 @@ func _ready():
 	last_pos = start_pos
 	target_pos_next = start_pos
 	target_pos = start_pos
+	Events.add_signal(self, Events.SIGNAL_DIE, on_die)
 
-func _process(delta):
+func _process(delta:float):
+	if dead:
+		return
+	
 	if target_pos_next == last_pos:
 		target_pos = last_pos
 		
@@ -29,7 +34,8 @@ func _process(delta):
 		target_pos_next = target_pos + cur_dir
 	
 	var position_new := Walls.TILE_SIZE * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y)
-	position = MathEx.vec2_move_toward(position, position_new, delta * Walls.TILE_SIZE / move_seconds)
+	var move_delta := delta * Walls.TILE_SIZE / move_seconds
+	position = MathEx.vec2_move_toward(position, position_new, move_delta)
 	
 	if position == Walls.TILE_SIZE * Vector2(0.5 + target_pos.x, 0.5 + target_pos.y):
 		last_pos = target_pos
@@ -45,6 +51,17 @@ func _draw():
 	draw_rect(Rect2(p.x, p.y, Walls.TILE_SIZE, Walls.TILE_SIZE), Color.YELLOW, false, 1.0)
 	var t = Walls.TILE_SIZE * Vector2(target_pos.x , target_pos.y) - position
 	draw_rect(Rect2(t.x, t.y, Walls.TILE_SIZE, Walls.TILE_SIZE), Color.RED, false, 1.0)
+
+### events:
+
+func on_die():
+	dead = true
+	var tween = get_tree().create_tween()
+	tween.parallel().tween_property(self, "modulate", Color(1.0, 0.0, 0.0, 0.0), 0.35)
+	tween.parallel().tween_property(self, "scale", Vector2.ONE * 2.0, 0.35)
+	tween.parallel().tween_property(self, "rotation", 2.0, 0.35)
+	tween.tween_callback(func(): queue_free())
+	characters.unregister(self)
 
 ###
 
