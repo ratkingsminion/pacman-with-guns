@@ -22,7 +22,7 @@ func on_hurt(source):
 	if health <= 0:
 		die()
 	else:
-		var sprite := $".."/Sprite2D as Sprite2D
+		var sprite := $".."/Sprite2D as Sprite2D # TODO: change method of retrieving GFX
 		var scale_start := sprite.scale
 		sprite.scale = scale_start * 1.5
 		sprite.modulate = Color.RED

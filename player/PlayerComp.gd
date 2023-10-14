@@ -3,19 +3,17 @@ extends Node
 
 ###
 
-@export var bullet_scene:PackedScene
-@export var shoot_seconds := 0.35
+@export var weapon:WeaponComp
 
 @onready var creature:Character = get_parent()
 
 var inputs:Array[Dictionary] = []
-var shoot_timer:float
 
 ###
 
 func _process(delta:float):
 	if Input.is_action_pressed("shoot"):
-		try_shoot()
+		weapon.try_shoot(creature.cur_dir)
 	
 	check_input("move_left", Vector2i(-1, 0))
 	check_input("move_right", Vector2i(1, 0))
@@ -30,14 +28,6 @@ func _process(delta:float):
 		#	creature.cur_dir = Vector2i.ZERO
 
 ###
-
-func try_shoot() -> bool:
-	if shoot_timer > Time.get_ticks_msec() / 1000.0: return false
-	if creature.cur_dir.x != 0 and fposmod(creature.position.y, 1.0) != 0.0: return false
-	if creature.cur_dir.y != 0 and fposmod(creature.position.x, 1.0) != 0.0: return false
-	shoot_timer = Time.get_ticks_msec() / 1000.0 + shoot_seconds
-	Events.on_player_try_shoot.emit(self, bullet_scene, Vector2(creature.cur_dir), creature.position)
-	return true
 
 func check_input(input_name:String, move:Vector2i):
 	var inside_inputs := ArrayEx.try_get_first(inputs, func(elem): return elem.name == input_name)

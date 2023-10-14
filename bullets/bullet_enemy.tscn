@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn06woaukn55d"]
+
+[ext_resource type="Script" path="res://bullets/Bullet.gd" id="1_ftfy1"]
+[ext_resource type="Texture2D" uid="uid://dagkpiwcb1x6o" path="res://icon.svg" id="2_osuc5"]
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_ftfy1")
+speed_factor = 0.25
+non_hit_time = 1000.0
+groups = Array[String](["characters"])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("2_osuc5")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-4, 0)
+target_position = Vector2(8, 0)

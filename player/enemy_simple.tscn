@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://67ks7c076lo6"]
+
+[ext_resource type="Script" path="res://player/Character.gd" id="1_2utfh"]
+[ext_resource type="Script" path="res://player/EnemyComp.gd" id="2_4tgqe"]
+[ext_resource type="Script" path="res://player/HealthComp.gd" id="3_4hu7i"]
+[ext_resource type="Texture2D" uid="uid://dagkpiwcb1x6o" path="res://icon.svg" id="4_0v6uc"]
+[ext_resource type="Script" path="res://player/WeaponComp.gd" id="4_2dir3"]
+[ext_resource type="PackedScene" uid="uid://dn06woaukn55d" path="res://bullets/bullet_enemy.tscn" id="5_qnlkj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tgwu0"]
+size = Vector2(12, 12)
+
+[node name="Enemy Simple" type="CharacterBody2D" groups=["characters", "enemies", "hittables"]]
+script = ExtResource("1_2utfh")
+start_pos = Vector2i(1, 1)
+
+[node name="EnemyComp" type="Node" parent="." node_paths=PackedStringArray("weapon")]
+script = ExtResource("2_4tgqe")
+weapon = NodePath("../WeaponComp")
+
+[node name="HealthComp" type="Node" parent="."]
+script = ExtResource("3_4hu7i")
+
+[node name="WeaponComp" type="Node" parent="."]
+script = ExtResource("4_2dir3")
+bullet_scene = ExtResource("5_qnlkj")
+shoot_seconds = 0.2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_0v6uc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tgwu0")

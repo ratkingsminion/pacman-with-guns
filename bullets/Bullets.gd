@@ -3,13 +3,9 @@ extends Node2D
 
 ###
 
-func _init():
-	Events.on_player_try_shoot.connect(on_player_try_shoot)
-
-func on_player_try_shoot(source:Node, bullet_scene:Resource, direction:Vector2, location:Vector2):
+func spawn(source:Node, bullet_scene:Resource, direction:Vector2, location:Vector2):
 	var bullet := bullet_scene.instantiate() as Bullet
 	call_deferred("add_child", bullet) # add_child(bullet)
-	bullet.init(source)
+	bullet.init(source, Vector2.RIGHT.rotated(direction.angle()))
 	bullet.look_at(direction)
 	bullet.position = location
-	bullet.velocity = Vector2.RIGHT.rotated(bullet.rotation)

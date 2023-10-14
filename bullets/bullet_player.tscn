@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://nlpwr826nwac"]
 
-[ext_resource type="Script" path="res://bullets/Bullet.gd" id="1_nro3o"]
-[ext_resource type="Texture2D" uid="uid://dagkpiwcb1x6o" path="res://icon.svg" id="2_e7p6j"]
+[ext_resource type="Script" path="res://bullets/Bullet.gd" id="1_mg6js"]
+[ext_resource type="Texture2D" uid="uid://dagkpiwcb1x6o" path="res://icon.svg" id="2_7sews"]
 
 [node name="Bullet" type="Node2D"]
-script = ExtResource("1_nro3o")
+script = ExtResource("1_mg6js")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0989583, 0.03125)
-texture = ExtResource("2_e7p6j")
+texture = ExtResource("2_7sews")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-6.08, 0)
