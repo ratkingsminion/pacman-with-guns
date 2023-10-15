@@ -10,9 +10,9 @@ extends CharacterBody2D
 
 var dead := false
 var cur_dir := Vector2i(0, 0)
-var last_pos:Vector2i
-var target_pos:Vector2i
-var target_pos_next:Vector2i
+var last_pos:Vector2i = start_pos
+var target_pos:Vector2i = start_pos
+var target_pos_next:Vector2i = start_pos
 
 ###
 

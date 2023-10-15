@@ -1,18 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://47dtdnrsmypt"]
 
 [ext_resource type="Script" path="res://pills/Pill.gd" id="1_6wm14"]
-[ext_resource type="Texture2D" uid="uid://dagkpiwcb1x6o" path="res://icon.svg" id="2_gpbci"]
+[ext_resource type="Texture2D" uid="uid://cvfn41i1xshrg" path="res://pills/pill.png" id="2_xecte"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tq53s"]
 radius = 3.0
 
 [node name="PILL" type="Area2D" groups=["pills"]]
-position = Vector2(40, 40)
 script = ExtResource("1_6wm14")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_gpbci")
+texture_filter = 1
+scale = Vector2(0.3125, 0.3125)
+texture = ExtResource("2_xecte")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tq53s")

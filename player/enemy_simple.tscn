@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://player/Character.gd" id="1_2utfh"]
 [ext_resource type="Script" path="res://player/EnemyComp.gd" id="2_4tgqe"]
 [ext_resource type="Script" path="res://player/HealthComp.gd" id="3_4hu7i"]
-[ext_resource type="Texture2D" uid="uid://dagkpiwcb1x6o" path="res://icon.svg" id="4_0v6uc"]
 [ext_resource type="Script" path="res://player/WeaponComp.gd" id="4_2dir3"]
 [ext_resource type="PackedScene" uid="uid://dn06woaukn55d" path="res://bullets/bullet_enemy.tscn" id="5_qnlkj"]
+[ext_resource type="Texture2D" uid="uid://kpb6crifivkr" path="res://player/enemy.png" id="6_q64fr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tgwu0"]
 size = Vector2(12, 12)
@@ -27,8 +27,9 @@ bullet_scene = ExtResource("5_qnlkj")
 shoot_seconds = 0.2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("4_0v6uc")
+texture_filter = 1
+scale = Vector2(0.5625, 0.5625)
+texture = ExtResource("6_q64fr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tgwu0")
