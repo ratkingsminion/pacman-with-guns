@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://34c84645wrs8"]
+[gd_scene load_steps=19 format=3 uid="uid://34c84645wrs8"]
 
 [ext_resource type="PackedScene" uid="uid://buvvwn5r2isax" path="res://ui/ui.tscn" id="1_1cek7"]
 [ext_resource type="Texture2D" uid="uid://cfpx2qf612qj8" path="res://tiles/floors.png" id="2_me104"]
@@ -9,7 +9,9 @@
 [ext_resource type="Script" path="res://pills/Pills.gd" id="6_i5an2"]
 [ext_resource type="PackedScene" uid="uid://47dtdnrsmypt" path="res://pills/pill.tscn" id="7_j2405"]
 [ext_resource type="Script" path="res://bullets/Bullets.gd" id="8_pv4om"]
+[ext_resource type="PackedScene" uid="uid://nlpwr826nwac" path="res://bullets/bullet_player.tscn" id="9_afpl2"]
 [ext_resource type="Script" path="res://player/Creatures.gd" id="9_s4psg"]
+[ext_resource type="PackedScene" uid="uid://dn06woaukn55d" path="res://bullets/bullet_enemy.tscn" id="10_24ink"]
 [ext_resource type="PackedScene" uid="uid://67ks7c076lo6" path="res://player/enemy_simple.tscn" id="11_2dw5t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8kg06"]
@@ -100,6 +102,7 @@ pill_scene = ExtResource("7_j2405")
 
 [node name="BULLETS" type="Node2D" parent="GAME"]
 script = ExtResource("8_pv4om")
+bullet_scenes = Array[PackedScene]([ExtResource("9_afpl2"), ExtResource("10_24ink")])
 
 [node name="CREATURES" type="Node2D" parent="GAME"]
 script = ExtResource("9_s4psg")

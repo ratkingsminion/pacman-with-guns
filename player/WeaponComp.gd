@@ -1,7 +1,7 @@
 class_name WeaponComp
 extends Node
 
-@export var bullet_scene:PackedScene
+@export var bullet_name:String
 @export var shoot_seconds := 0.35
 
 @onready var creature:Creature = get_parent()
@@ -17,5 +17,5 @@ func try_shoot(dir:Vector2) -> bool:
 	if creature.cur_dir.x != 0 and fposmod(creature.position.y, 1.0) != 0.0: return false
 	if creature.cur_dir.y != 0 and fposmod(creature.position.x, 1.0) != 0.0: return false
 	shoot_timer = Time.get_ticks_msec() / 1000.0 + shoot_seconds
-	bullets.spawn(creature, bullet_scene, dir, creature.position)
+	bullets.spawn(bullet_name, creature, dir, creature.position)
 	return true
