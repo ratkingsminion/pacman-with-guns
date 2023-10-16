@@ -1,4 +1,4 @@
-class_name Character
+class_name Creature
 extends CharacterBody2D
 
 @export var move_seconds := 0.2
@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var start_pos := Vector2i(2, 2)
 
 @onready var walls:Walls = $/root/Main/GAME/Walls
-@onready var characters:Characters = $/root/Main/GAME/CHARACTERS
+@onready var creatures:Creatures = $/root/Main/GAME/CREATURES
 
 var dead := false
 var cur_dir := Vector2i(0, 0)
@@ -61,7 +61,7 @@ func on_die():
 	tween.parallel().tween_property(self, "scale", Vector2.ONE * 2.0, 0.35)
 	tween.parallel().tween_property(self, "rotation", 2.0, 0.35)
 	tween.tween_callback(func(): queue_free())
-	characters.unregister(self)
+	creatures.unregister(self)
 
 ###
 
@@ -77,6 +77,6 @@ func try_move(to:Vector2i) -> bool:
 			if (nc.x == 1 or nc.x == 3) and move.y < 0: return false
 			if (nc.x == 2 or nc.x == 3) and move.x < 0: return false
 		if nc.y == 1: return false
-	if characters != null:
-		if not characters.can_move_to(self, to): return false
+	if creatures != null:
+		if not creatures.can_move_to(self, to): return false
 	return true

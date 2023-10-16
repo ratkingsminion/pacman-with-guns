@@ -4,7 +4,7 @@ extends Node
 @export var bullet_scene:PackedScene
 @export var shoot_seconds := 0.35
 
-@onready var creature:Character = get_parent()
+@onready var creature:Creature = get_parent()
 
 @onready var bullets:Bullets = $/root/Main/GAME/BULLETS
 

@@ -3,7 +3,7 @@ extends Node
 
 @export var weapon:WeaponComp
 
-@onready var creature:Character = get_parent()
+@onready var creature:Creature = get_parent()
 
 var shoot_dir:Vector2
 

@@ -3,15 +3,19 @@ extends Node
 
 @export var max_halth := 5
 
-@onready var creature:Character = get_parent()
+@onready var creature:Creature = get_parent()
+@onready var sprite:Sprite2D = $".."/Sprite2D
 
 var health := 0
+var tween:Tween
+var scale_start:Vector2
 
 ###
 
 func _ready():
 	health = max_halth
 	Events.add_signal(creature, Events.SIGNAL_HURT, on_hurt)
+	scale_start = sprite.scale
 
 ### events:
 
@@ -22,11 +26,10 @@ func on_hurt(source):
 	if health <= 0:
 		die()
 	else:
-		var sprite := $".."/Sprite2D as Sprite2D # TODO: change method of retrieving GFX
-		var scale_start := sprite.scale
+		if tween != null: tween.stop()
 		sprite.scale = scale_start * 1.5
 		sprite.modulate = Color.RED
-		var tween = get_tree().create_tween()
+		tween = get_tree().create_tween()
 		tween.parallel().tween_property(sprite, "modulate", Color.WHITE, 0.1)
 		tween.parallel().tween_property(sprite, "scale", scale_start, 0.1)
 

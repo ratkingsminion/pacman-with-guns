@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://buvvwn5r2isax" path="res://ui/ui.tscn" id="1_1cek7"]
 [ext_resource type="Texture2D" uid="uid://cfpx2qf612qj8" path="res://tiles/floors.png" id="2_me104"]
-[ext_resource type="Script" path="res://player/Characters.gd" id="2_niwjh"]
 [ext_resource type="Texture2D" uid="uid://u1uuakjilerl" path="res://tiles/Tileset_Dungeon.png" id="3_j7hgb"]
 [ext_resource type="PackedScene" uid="uid://ca30kgo7htqco" path="res://player/player.tscn" id="3_pfen7"]
 [ext_resource type="Texture2D" uid="uid://byg6twxr514ri" path="res://tiles/walls.png" id="4_6frun"]
@@ -10,6 +9,7 @@
 [ext_resource type="Script" path="res://pills/Pills.gd" id="6_i5an2"]
 [ext_resource type="PackedScene" uid="uid://47dtdnrsmypt" path="res://pills/pill.tscn" id="7_j2405"]
 [ext_resource type="Script" path="res://bullets/Bullets.gd" id="8_pv4om"]
+[ext_resource type="Script" path="res://player/Creatures.gd" id="9_s4psg"]
 [ext_resource type="PackedScene" uid="uid://67ks7c076lo6" path="res://player/enemy_simple.tscn" id="11_2dw5t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8kg06"]
@@ -101,12 +101,9 @@ pill_scene = ExtResource("7_j2405")
 [node name="BULLETS" type="Node2D" parent="GAME"]
 script = ExtResource("8_pv4om")
 
-[node name="CHARACTERS" type="Node2D" parent="GAME"]
-script = ExtResource("2_niwjh")
+[node name="CREATURES" type="Node2D" parent="GAME"]
+script = ExtResource("9_s4psg")
 enemy_scene = ExtResource("11_2dw5t")
 
-[node name="Player" parent="GAME/CHARACTERS" instance=ExtResource("3_pfen7")]
+[node name="Player" parent="GAME/CREATURES" instance=ExtResource("3_pfen7")]
 unique_name_in_owner = true
-move_seconds = 0.2
-show_debug = false
-start_pos = Vector2i(2, 2)

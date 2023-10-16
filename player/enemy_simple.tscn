@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://67ks7c076lo6"]
 
-[ext_resource type="Script" path="res://player/Character.gd" id="1_2utfh"]
+[ext_resource type="Script" path="res://player/Creature.gd" id="1_s3d7w"]
 [ext_resource type="Script" path="res://player/EnemyComp.gd" id="2_4tgqe"]
 [ext_resource type="Script" path="res://player/HealthComp.gd" id="3_4hu7i"]
 [ext_resource type="Script" path="res://player/WeaponComp.gd" id="4_2dir3"]
@@ -11,7 +11,7 @@
 size = Vector2(12, 12)
 
 [node name="Enemy Simple" type="CharacterBody2D" groups=["characters", "enemies", "hittables"]]
-script = ExtResource("1_2utfh")
+script = ExtResource("1_s3d7w")
 start_pos = Vector2i(1, 1)
 
 [node name="EnemyComp" type="Node" parent="." node_paths=PackedStringArray("weapon")]
