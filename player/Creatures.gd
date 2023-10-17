@@ -27,17 +27,17 @@ func spawn_enemy() -> Creature:
 	c.tree_exited.connect(func(): unregister(c))
 	return c
 
-func can_move_to(char:Creature, target:Vector2i) -> bool:
+func can_move_to(creature:Creature, target:Vector2i) -> bool:
 	for c in all_creatures:
-		if c == char: continue
-		if char != null and c.last_pos == target and c.target_pos == char.last_pos: return false
+		if c == creature: continue
+		if creature != null and c.last_pos == target and c.target_pos == creature.last_pos: return false
 		if c.target_pos == target: return false
 		if c.target_pos_next == target: return false
 	return true
 
-func unregister(char:Creature):
-	if not all_creatures.has(char): return
-	all_creatures.erase(char)
-	if char != player:
+func unregister(creature:Creature):
+	if not all_creatures.has(creature): return
+	all_creatures.erase(creature)
+	if creature != player:
 		spawn_enemy() # respawn!
 		spawn_enemy() # respawn!

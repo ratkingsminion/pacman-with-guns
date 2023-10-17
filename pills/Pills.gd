@@ -27,12 +27,12 @@ func create_all():
 			add_child(pill)
 			max_count += 1
 			all_pills[coords] = pill
-	Events.on_pill_count_changed.emit(all_pills.size(), 0)
+	Events.pill_count_changed.emit(all_pills.size(), 0)
 
 func collect(pill:Pill):
 	all_pills.erase(pill.coords)
 	pill.queue_free()
 	collected += 1
-	Events.on_pill_count_changed.emit(all_pills.size(), collected)
+	Events.pill_count_changed.emit(all_pills.size(), collected)
 	if all_pills.is_empty(): # or randf() < 0.05:
 		call_deferred("create_all")
