@@ -11,7 +11,7 @@ var inputs:Array[Dictionary] = []
 
 ###
 
-func _process(_delta:float):
+func _process(delta:float):
 	if Input.is_action_pressed("shoot"):
 		weapon.try_shoot(creature.cur_dir)
 	

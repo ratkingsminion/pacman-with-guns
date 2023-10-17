@@ -14,7 +14,7 @@ func _ready():
 	Events.add_signal(creature, Events.SIGNAL_DIE, on_die)
 	shoot_dir = Vector2(randf() - 0.5, randf() - 0.5).normalized()
 
-func _process(_delta:float):
+func _process(delta:float):
 	if creature.last_pos == creature.target_pos and not creature.try_move(creature.target_pos + creature.cur_dir):
 		match randi_range(0, 3):
 			0: creature.cur_dir = Vector2i.RIGHT

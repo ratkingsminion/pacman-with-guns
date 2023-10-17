@@ -19,7 +19,7 @@ func _ready():
 
 ### events:
 
-func on_hurt(_source):
+func on_hurt(source):
 	if health <= 0: return # already dead
 	
 	health -= 1

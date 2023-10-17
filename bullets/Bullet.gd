@@ -13,9 +13,9 @@ var birth_time:int
 
 ###
 
-func init(_source:Object, _velocity:Vector2):
-	source = _source
-	velocity = _velocity
+func init(source:Object, velocity:Vector2):
+	self.source = source
+	self.velocity = velocity
 	birth_time = Time.get_ticks_msec()
 
 ###

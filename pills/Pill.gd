@@ -13,6 +13,6 @@ func init(x:int, y:int, tile_size:int):
 
 ### events
 
-func _on_body_shape_entered(_body_rid:RID, body:Node2D, _body_shape_index:int, _local_shape_index:int):
+func _on_body_shape_entered(body_rid:RID, body:Node2D, body_shape_index:int, local_shape_index:int):
 	if body == player: # TODO
 		get_parent().collect(self)
