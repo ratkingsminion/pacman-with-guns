@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://67ks7c076lo6"]
+[gd_scene load_steps=8 format=3 uid="uid://67ks7c076lo6"]
 
 [ext_resource type="Script" path="res://player/Creature.gd" id="1_s3d7w"]
 [ext_resource type="Script" path="res://player/EnemyComp.gd" id="2_4tgqe"]
 [ext_resource type="Script" path="res://player/HealthComp.gd" id="3_4hu7i"]
 [ext_resource type="Script" path="res://player/WeaponComp.gd" id="4_2dir3"]
 [ext_resource type="Texture2D" uid="uid://kpb6crifivkr" path="res://player/enemy.png" id="6_q64fr"]
+[ext_resource type="Texture2D" uid="uid://bivfnc3lqtwu2" path="res://2d_lights_and_shadows_neutral_point_light.png" id="6_yv7vy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tgwu0"]
 size = Vector2(12, 12)
@@ -32,3 +33,9 @@ texture = ExtResource("6_q64fr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tgwu0")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.482353, 0.498039, 1)
+shadow_enabled = true
+texture = ExtResource("6_yv7vy")
+texture_scale = 0.65

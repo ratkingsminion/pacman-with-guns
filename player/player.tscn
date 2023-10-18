@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ca30kgo7htqco"]
+[gd_scene load_steps=8 format=3 uid="uid://ca30kgo7htqco"]
 
 [ext_resource type="Script" path="res://player/Creature.gd" id="1_0b88g"]
 [ext_resource type="Script" path="res://player/PlayerComp.gd" id="2_5fc03"]
 [ext_resource type="Texture2D" uid="uid://dvlwfp0mccgba" path="res://player/player.png" id="2_q0b5q"]
 [ext_resource type="Script" path="res://player/HealthComp.gd" id="4_qqq8r"]
 [ext_resource type="Script" path="res://player/WeaponComp.gd" id="5_0fsna"]
+[ext_resource type="Texture2D" uid="uid://bivfnc3lqtwu2" path="res://2d_lights_and_shadows_neutral_point_light.png" id="6_25ovt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6kkpa"]
 radius = 6.0
@@ -30,3 +31,10 @@ shape = SubResource("CircleShape2D_6kkpa")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_q0b5q")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.933333, 0.858824, 0.929412, 1)
+energy = 0.6
+shadow_enabled = true
+shadow_color = Color(0.109804, 0.117647, 0.0509804, 0)
+texture = ExtResource("6_25ovt")

@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://47dtdnrsmypt"]
+[gd_scene load_steps=5 format=3 uid="uid://47dtdnrsmypt"]
 
 [ext_resource type="Script" path="res://pills/Pill.gd" id="1_6wm14"]
 [ext_resource type="Texture2D" uid="uid://cvfn41i1xshrg" path="res://pills/pill.png" id="2_xecte"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tq53s"]
 radius = 3.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_a6qv7"]
+cull_mode = 1
+polygon = PackedVector2Array(-2, -2, -1, -4, 2, -4, 2, 3, -1, 4)
 
 [node name="PILL" type="Area2D" groups=["pills"]]
 script = ExtResource("1_6wm14")
@@ -16,3 +20,6 @@ texture = ExtResource("2_xecte")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_tq53s")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_a6qv7")

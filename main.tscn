@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://34c84645wrs8"]
+[gd_scene load_steps=27 format=3 uid="uid://34c84645wrs8"]
 
 [ext_resource type="PackedScene" uid="uid://buvvwn5r2isax" path="res://ui/ui.tscn" id="1_1cek7"]
 [ext_resource type="Texture2D" uid="uid://cfpx2qf612qj8" path="res://tiles/floors.png" id="2_me104"]
@@ -25,6 +25,30 @@ texture = ExtResource("2_me104")
 1:1/0 = 0
 0:1/0 = 0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_k1pdv"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3b8q7"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jvj1f"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1pd0f"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mju8r"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_iah4c"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xfi7a"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_t13lh"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o28g2"]
 texture = ExtResource("3_j7hgb")
 0:0/0 = 0
@@ -33,16 +57,25 @@ texture = ExtResource("3_j7hgb")
 3:0/0 = 0
 4:0/0 = 0
 0:1/0 = 0
+0:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_k1pdv")
 1:1/0 = 0
+1:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_jvj1f")
 2:1/0 = 0
+2:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_mju8r")
 3:1/0 = 0
+3:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_xfi7a")
 4:1/0 = 0
+4:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_t13lh")
 0:2/0 = 0
+0:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_3b8q7")
 1:2/0 = 0
+1:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_1pd0f")
 2:2/0 = 0
+2:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_iah4c")
 3:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_ivfw2"]
+occlusion_layer_0/light_mask = 1
 sources/0 = SubResource("TileSetAtlasSource_8kg06")
 sources/1 = SubResource("TileSetAtlasSource_o28g2")
 
